@@ -21,3 +21,6 @@ class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade
         fields = '__all__'
+
+class TradeDecisionSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(choices=['ACCEPTED', 'CANCEL'])
