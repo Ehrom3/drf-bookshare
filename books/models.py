@@ -21,8 +21,8 @@ class Books(models.Model):
 
     ]
     
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    city = models.ForeignKey(City, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     name = models.CharField(max_length=245)
@@ -49,4 +49,4 @@ class Trade(models.Model):
     status = models.CharField(choices=STATUS, default='PENDING')
     
     def __str__(self):
-        return self.book
+        return str(self.book)

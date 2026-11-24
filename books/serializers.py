@@ -20,7 +20,13 @@ class BooksSerializer(serializers.ModelSerializer):
 class TradeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trade
-        fields = '__all__'
+        fields = ('id', 'book', 'getter', 'status', 'created_at')
+        read_only_fields = ('getter', 'status', 'created_at')
+
+    def validate_book(self, book):
+        if book.user_id == self.context['request'].user.id:
+            raise serializers.ValidationError('Нельзя отправить заявку на свою книгу.')
+        return book
 
 class TradeDecisionSerializer(serializers.Serializer):
     status = serializers.ChoiceField(choices=['ACCEPTED', 'CANCEL'])
