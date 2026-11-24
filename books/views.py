@@ -1,6 +1,6 @@
 from django.db.models import Q
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from .serializers import *
@@ -12,10 +12,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 class CategoryViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAdminUser]
     
 class CityViewSet(ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+    permission_classes = [IsAdminUser]
+
 
 
 class BookViewSet(ModelViewSet):
